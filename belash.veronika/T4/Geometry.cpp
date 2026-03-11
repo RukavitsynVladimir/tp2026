@@ -2,10 +2,11 @@
 #include <memory>
 #include <vector>
 #include <iomanip>
-#include "Rectangle.hpp"
-#include "Ellipse.hpp"
-#include "Right_trapezoid.hpp"
+#include "Shape.hpp"
 #include "Composite_shape.hpp"
+#include "Ellipse.hpp"
+#include "Rectangle.hpp"
+#include "Right_trapezoid.hpp"
 
 void printInfo(const std::vector<std::unique_ptr<Shape>>& shapes) {
     for (size_t i = 0; i < shapes.size(); ++i) {
@@ -34,21 +35,18 @@ void printInfo(const std::vector<std::unique_ptr<Shape>>& shapes) {
 }
 
 int main() {
-    std::cerr << "Error: Invalid usage" << '\n';
-
     std::vector<std::unique_ptr<Shape>> shapes;
-    shapes.push_back(std::make_unique<Rectangle>(Point(0, 0), Point(2, 3)));
-    shapes.push_back(std::make_unique<Ellipse>(Point(5, 5), 2.0, 1.5));
-    shapes.push_back(std::make_unique<RightTrapezoid>(Point(1, 1), 4.0, 2.0, 2.0));
-    shapes.push_back(std::make_unique<Rectangle>(Point(3, 2), Point(5, 4)));
-    shapes.push_back(std::make_unique<Ellipse>(Point(-2, -1), 1.0, 0.5));
 
-    std::unique_ptr<CompositeShape> composite = std::make_unique<CompositeShape>();
-    std::unique_ptr<Shape> rect2 = std::make_unique<Rectangle>(Point(1, 2), Point(3, 5));
-    std::unique_ptr<Shape> ellipse2 = std::make_unique<Ellipse>(Point(4, 3), 1.0, 2.0);
+    shapes.push_back(std::make_unique<Rectangle>(Point{ 0, 0 }, Point{ 2, 3 }));
+    shapes.push_back(std::make_unique<Ellipse>(Point{ 5, 5 }, 2.0, 1.5));
+    shapes.push_back(std::make_unique<RightTrapezoid>(Point{ 1, 1 }, 4.0, 2.0, 2.0));
+    shapes.push_back(std::make_unique<Rectangle>(Point{ 3, 2 }, Point{ 5, 4 }));
+    shapes.push_back(std::make_unique<Ellipse>(Point{ -2, -1 }, 1.0, 0.5));
 
-    composite->addShape(std::move(rect2));
-    composite->addShape(std::move(ellipse2));
+    auto composite = std::make_unique<CompositeShape>();
+    composite->addShape(std::make_unique<Rectangle>(Point{ 1, 2 }, Point{ 3, 5 }));
+    composite->addShape(std::make_unique<Ellipse>(Point{ 4, 3 }, 1.0, 2.0));
+
     shapes.push_back(std::move(composite));
 
     std::cout << "BEFORE SCALING:\n";
@@ -61,5 +59,5 @@ int main() {
     std::cout << "\nAFTER SCALING:\n";
     printInfo(shapes);
 
-    return 1;
+    return 0;
 }
