@@ -2,6 +2,7 @@
 #include <memory>
 #include <vector>
 #include <iomanip>
+#include <stdexcept>
 #include "Rectangle.hpp"
 #include "Ellipse.hpp"
 #include "Right_trapezoid.hpp"
@@ -34,34 +35,39 @@ void printInfo(const std::vector<std::unique_ptr<Shape>>& shapes) {
 }
 
 int main() {
-    std::vector<std::unique_ptr<Shape>> shapes;
+    try {
+        std::vector<std::unique_ptr<Shape>> shapes;
+        shapes.push_back(std::make_unique<Rectangle>(Point(0, 0), Point(2, 3)));
+        shapes.push_back(std::make_unique<Ellipse>(Point(5, 5), 2.0, 1.5));
+        shapes.push_back(std::make_unique<RightTrapezoid>(Point(1, 1), 4.0, 2.0, 2.0));
+        shapes.push_back(std::make_unique<Rectangle>(Point(3, 2), Point(5, 4)));
+        shapes.push_back(std::make_unique<Ellipse>(Point(-2, -1), 1.0, 0.5));
 
-    shapes.push_back(std::make_unique<Rectangle>(Point(0, 0), Point(2, 3)));
-    shapes.push_back(std::make_unique<Ellipse>(Point(5, 5), 2.0, 1.5));
-    shapes.push_back(std::make_unique<RightTrapezoid>(Point(1, 1), 4.0, 2.0, 2.0));
-    shapes.push_back(std::make_unique<Rectangle>(Point(3, 2), Point(5, 4)));
-    shapes.push_back(std::make_unique<Ellipse>(Point(-2, -1), 1.0, 0.5));
+        std::unique_ptr<CompositeShape> composite = std::make_unique<CompositeShape>();
 
-    std::unique_ptr<CompositeShape> composite = std::make_unique<CompositeShape>();
+        std::unique_ptr<Shape> rect2 = std::make_unique<Rectangle>(Point(1, 2), Point(3, 5));
+        std::unique_ptr<Shape> ellipse2 = std::make_unique<Ellipse>(Point(4, 3), 1.0, 2.0);
 
-    std::unique_ptr<Shape> rect2 = std::make_unique<Rectangle>(Point(1, 2), Point(3, 5));
-    std::unique_ptr<Shape> ellipse2 = std::make_unique<Ellipse>(Point(4, 3), 1.0, 2.0);
+        composite->addShape(std::move(rect2));
+        composite->addShape(std::move(ellipse2));
 
-    composite->addShape(std::move(rect2));
-    composite->addShape(std::move(ellipse2));
+        shapes.push_back(std::move(composite));
 
-    shapes.push_back(std::move(composite));
+        std::cout << "BEFORE SCALING:\n";
+        printInfo(shapes);
 
-    std::cout << "BEFORE SCALING:\n";
-    printInfo(shapes);
+        for (size_t i = 0; i < shapes.size(); ++i) {
+            std::unique_ptr<Shape>& shape = shapes[i];
+            shape->scale(2.0);
+        }
 
-    for (size_t i = 0; i < shapes.size(); ++i) {
-        std::unique_ptr<Shape>& shape = shapes[i];
-        shape->scale(2.0);
+        std::cout << "\nAFTER SCALING:\n";
+        printInfo(shapes);
+
+        return 0;
     }
-
-    std::cout << "\nAFTER SCALING:\n";
-    printInfo(shapes);
-
-    return 0;
+    catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return 1;
+    }
 }

@@ -1,8 +1,12 @@
 #include "Ellipse.hpp"
 #include <cmath>
+#include <stdexcept>
 
 Ellipse::Ellipse(const Point& c, double rx, double ry)
     : center_(c), radiusX_(rx), radiusY_(ry) {
+    if (rx < 0 || ry < 0) {
+        throw std::invalid_argument("Ellipse radii cannot be negative");
+    }
 }
 
 double Ellipse::getArea() const {

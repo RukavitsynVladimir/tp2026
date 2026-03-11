@@ -1,7 +1,11 @@
 #include "Right_trapezoid.hpp"
+#include <stdexcept>
 
 RightTrapezoid::RightTrapezoid(const Point& bl, double bBase, double tBase, double h)
     : bottomLeft_(bl), bottomBase_(bBase), topBase_(tBase), height_(h) {
+    if (bBase < 0 || tBase < 0 || h < 0) {
+        throw std::invalid_argument("Trapezoid dimensions cannot be negative");
+    }
 }
 
 double RightTrapezoid::getArea() const {

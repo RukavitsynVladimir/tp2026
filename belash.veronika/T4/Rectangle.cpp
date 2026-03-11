@@ -1,7 +1,11 @@
 #include "Rectangle.hpp"
+#include <stdexcept>
 
 Rectangle::Rectangle(const Point& bl, const Point& tr)
     : bottomLeft_(bl), topRight_(tr) {
+    if (tr.x - bl.x < 0 || tr.y - bl.y < 0) {
+        throw std::invalid_argument("Rectangle dimensions cannot be negative");
+    }
 }
 
 double Rectangle::getArea() const {
