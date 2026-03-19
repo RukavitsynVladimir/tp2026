@@ -11,7 +11,7 @@ protected:
     Point botLet;
     Point topRit;
 public:
-    Rectangle(const Point& bl, const Point& tr) : botLet(bl), topRit(tr) 
+    Rectangle(const Point& bl, const Point& tr) : botLet(bl), topRit(tr)
     {}
     Rectangle(const double& blX, const double& blY, const double& trX, const double& trY)
     {

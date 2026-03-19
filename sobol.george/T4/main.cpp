@@ -21,7 +21,7 @@ void printInfo(const std::vector<std::unique_ptr<Shape>>& shapes)
             CompositeShape* composite = dynamic_cast<CompositeShape*>(shapes[i].get());
             for (size_t j = 0; j < composite->membersAccess().size(); j++)
             {
-                std::cout << '\t' << composite->membersAccess()[j]->getName() << ", " << "(" 
+                std::cout << '\t' << composite->membersAccess()[j]->getName() << ", " << "("
                     << composite->membersAccess()[j]->getCenter().x << ", "
                     << composite->membersAccess()[j]->getCenter().y << "), "
                     << composite->membersAccess()[j]->getArea() << ",\n";

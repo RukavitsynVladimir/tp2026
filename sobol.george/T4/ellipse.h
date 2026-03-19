@@ -12,7 +12,7 @@ protected:
     double radiusX;
     double radiusY;
 public:
-    Ellipse(const Point& c, double rX, double rY) : center(c), radiusX(rX), radiusY(rY) 
+    Ellipse(const Point& c, double rX, double rY) : center(c), radiusX(rX), radiusY(rY)
     {}
     ~Ellipse() override
     {}

@@ -11,9 +11,9 @@ private:
     Point botLet;
     double length;
 public:
-    Square(const Point& tl, const double& l) : botLet(tl), length(l) 
+    Square(const Point& tl, const double& l) : botLet(tl), length(l)
     {}
-    ~Square() override 
+    ~Square() override
     {}
     double getArea() const override
     {
