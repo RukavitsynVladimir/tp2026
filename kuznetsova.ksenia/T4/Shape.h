@@ -8,6 +8,7 @@ class Shape
 {
 public:
     virtual ~Shape() = default;
+    virtual std::unique_ptr<Shape> clone() const = 0;
     virtual double getArea() const = 0;
     virtual Point getCenter() const = 0;
     virtual void move(double dx, double dy) = 0;

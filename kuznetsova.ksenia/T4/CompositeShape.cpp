@@ -3,7 +3,6 @@
 #include <limits>
 #include <stdexcept>
 #include <cmath>
-CompositeShape::~CompositeShape() = default;
 
 CompositeShape::CompositeShape(const CompositeShape& other) {
 for (const auto& shape : other.shapes_) {

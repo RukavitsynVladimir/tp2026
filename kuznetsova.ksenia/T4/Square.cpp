@@ -10,6 +10,10 @@ throw std::invalid_argument("Error: The zoom level should be positive..");
 }
 }
 
+std::unique_ptr<Shape> Rectangle::clone() const {
+return std::make_unique<Square>(*this);
+}
+
 double Square::getArea() const {
 return side_ * side_;
 }
